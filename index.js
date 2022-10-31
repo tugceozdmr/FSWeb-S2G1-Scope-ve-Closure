@@ -37,6 +37,7 @@ console.log('örnek görev:', ilkiniDon(['as','sa'],function(metin){return metin
 */
 
 // skor1 kodları
+ 
 function skorArtirici() {
   let skor = 0;
   return function skorGuncelle() {
@@ -64,10 +65,11 @@ Aşağıdaki takimSkoru() fonksiyonununda aşağıdakileri yapınız:
 Not: Bu fonskiyon, aşağıdaki diğer görevler için de bir callback fonksiyonu olarak da kullanılacak
 */
 
-function takimSkoru(/*Kodunuzu buraya yazınız*/){
-    /*Kodunuzu buraya yazınız*/
+function takimSkoru(){
+  let skor = Math.floor(Math.random()*16 +10) 
+ return skor ;
 }
-
+console.log(takimSkoru(10, 25));
 
 
 
@@ -86,13 +88,23 @@ Aşağıdaki macSonucu() fonksiyonununda aşağıdakileri yapınız:
 }
 */ 
 
-function macSonucu(/*Kodunuzu buraya yazınız*/){
-  /*Kodunuzu buraya yazınız*/
+function macSonucu(callback, ceyrekSayisi) {
+let evSahibi = 0;
+let konukTakim = 0;
+  
+for (let i=1; i<=ceyrekSayisi; i++) {
+evSahibi += callback();
+konukTakim += callback();
 }
 
+let skor={};
+skor.Evsahibi = evSahibi;
+skor['konukTakim'] = konukTakim;
+return skor;
+ 
+}
 
-
-
+console.log(macSonucu(takimSkoru,4));
 
 
 /* Zorlayıcı Görev 4: periyotSkoru()
@@ -109,11 +121,13 @@ Aşağıdaki periyotSkoru() fonksiyonununda aşağıdakileri yapınız:
   */
 
 
-function periyotSkoru(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
-
+function periyotSkoru(callbacki){
+  const scoreboard = {};
+  scoreboard['EvSahibi'] = callbacki
+  scoreboard['KonukTakim'] =callbacki
+  return  scoreboard;
 }
-
+console.log(periyotSkoru(takimSkoru));
 
 /* Zorlayıcı Görev 5: skorTabelasi() 
 Aşağıdaki skorTabelasi() fonksiyonunu kullanarak aşağıdakileri yapınız:
@@ -146,21 +160,31 @@ MAÇ UZAR ise skorTabelasi(periyotSkoru,takimSkoru,4)
 ] */
 // NOTE: Bununla ilgili bir test yoktur. Eğer logladığınız sonuçlar yukarıdakine benziyor ise tmamlandı sayabilirsiniz.
 
-function skorTabelasi(/*Kodunuzu buraya yazınız*/) {
-  /*Kodunuzu buraya yazınız*/
+function skorTabelasi(pscore, tscore, ceyrek) {
+ const arr =[];
+
+ for(let i = 1; i<=ceyrek; i++){
+  let ev  = takimSkoru(tscore);
+  let tak = takimSkoru(tscore);
+  let res = `${i}. Periyot: Ev Sahibi ${ev} Konuk Takım ${tak}`
+  arr.push(res);
 }
+return arr;
+}
+
+console.log(skorTabelasi(periyotSkoru,takimSkoru,4))
 
 
 
 
 /* Aşağıdaki satırları lütfen değiştirmeyiniz*/
-function as(){
+function sa(){
   console.log('Kodlar çalışıyor');
-  return 'sa';
+  return 'as';
 }
-as();
+sa();
 module.exports = {
-  as,
+  sa,
   ilkiniDon,
   skor1,
   skor2,
